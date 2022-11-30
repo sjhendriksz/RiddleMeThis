@@ -1,7 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+
+
 export default function App() {
+
+  const [riddleData, setRiddleData] = useState(null);
+  const [loadingRiddle, setLoadingRiddleData] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+
+      // Get the Riddle information
+      GetRiddleData(setRiddleData, setLoadingRiddleData);
+
+    }) ();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
