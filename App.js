@@ -10,14 +10,10 @@ export default function App() {
   const [loadingRiddle, setLoadingRiddleData] = useState(null);
 
   useEffect(() => {
-    (async () => {
+    
+    // Get the Riddle information
+    GetRiddleData(setRiddleData, setLoadingRiddleData);
 
-      // Get the Riddle information
-      GetRiddleData(setRiddleData, setLoadingRiddleData);
-      // console.log(riddleData);
-      // console.log(loadingRiddle);
-
-    }) ();
   }, []);
 
   // An error occured
