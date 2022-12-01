@@ -1,7 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
 
-
+// Import data functions
+import { GetRiddleData } from './src/hooks/api';
 
 export default function App() {
 
@@ -13,16 +14,41 @@ export default function App() {
 
       // Get the Riddle information
       GetRiddleData(setRiddleData, setLoadingRiddleData);
+      // console.log(riddleData);
+      // console.log(loadingRiddle);
 
     }) ();
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  // An error occured
+  if(riddleData == null){
+    console.log("Error while loading");
+    return (
+      <View style={styles.container}>
+        <Text>An error occured</Text>
+      </View>
+    );
+  }
+  else if(loadingRiddle){
+    console.log("Busy loading");
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+  // Loading and waiting for all data calls to complete
+  else {
+    console.log("Show text");
+    return (
+      <View style={styles.container}>
+        <Text>Title: {riddleData.title}</Text>
+        <Text>Question: {riddleData.question}</Text>
+        <Text>Answer: {riddleData.answer}</Text>
+      </View>
+    );
+  }
+
 }
 
 const styles = StyleSheet.create({
