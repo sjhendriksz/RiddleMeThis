@@ -2,27 +2,26 @@
 import {Text, View, TouchableOpacity } from 'react-native';
 
 // Import required styles
-import baseStyle from '../styles/base';
-import homeScreenStyles from '../styles/homeStyle';
+import styles from '../styles/styles';
 
 // Home Screen
 export default function HomeScreen(props){
 
     return(
-        <View style={baseStyle.container}>
-            <View style={homeScreenStyles.top}>
+        <View style={styles.container}>
+            <View style={styles.top}>
                 {/* placeholder */}
             </View>
-            <View style={homeScreenStyles.mid}>
-                <Text style={homeScreenStyles.textHeading}>Riddle Me This ...</Text>
-                <Text style={homeScreenStyles.textTitle}>A Riddle a day, keeps boredom at bay.</Text>
+            <View style={styles.midHome}>
+                <Text style={styles.textHeading1}>Riddle Me This ...</Text>
+                <Text style={styles.textTitle}>A Riddle a day, keeps boredom at bay.</Text>
             </View>
-            <View style={homeScreenStyles.bot}>
+            <View style={styles.bot}>
                 <TouchableOpacity 
-                style={baseStyle.btn}
+                style={styles.btn}
                 onPress={() => props.navigation.navigate('Riddle')}
                 >
-                    <Text style={baseStyle.btnText}>Give a Riddle</Text>
+                    <Text style={styles.btnText}>Give me a Riddle</Text>
                 </TouchableOpacity>
             </View>
 

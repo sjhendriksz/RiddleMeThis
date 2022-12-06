@@ -2,26 +2,25 @@
 import {Text, View, TouchableOpacity } from 'react-native';
 
 // Import required styles
-import baseStyle from '../styles/base';
+import styles from '../styles/styles';
 
 // Home Screen
 export default function SettingsScreen(props){
 
     return(
-        <View style={baseStyle.container}>
-            <View style={baseStyle.top}>
-                <Text style={baseStyle.textHeading}>Top Score:</Text>
-                <Text style={baseStyle.textTitle}>50</Text>
+        <View style={styles.container}>
+            <View style={styles.top}>
+                <Text style={styles.textHeading2}>Top Score: 50</Text>
             </View>
-            <View style={baseStyle.mid}>
-                <Text style={baseStyle.textHeading}>App Settings:</Text>
+            <View style={styles.mid}>
+                <Text style={styles.textHeading2}>App Settings:</Text>
             </View>
-            <View style={baseStyle.bot}>
+            <View style={styles.bot}>
                 <TouchableOpacity 
-                style={baseStyle.btn}
+                style={styles.btn}
                 onPress={() => props.navigation.navigate('Home')}
                 >
-                    <Text style={baseStyle.btnText}>Home</Text>
+                    <Text style={styles.btnText}>Home</Text>
                 </TouchableOpacity>
             </View>
 

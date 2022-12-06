@@ -2,7 +2,7 @@
 import {Text, View, TouchableOpacity } from 'react-native';
 
 // Import required styles
-import baseStyle from '../styles/base'
+import styles from '../styles/styles'
 
 // Home Screen
 export default function RiddleScreen(props){
@@ -10,19 +10,19 @@ export default function RiddleScreen(props){
     const riddleData = props.riddleData;
 
     return(
-        <View style={baseStyle.container}>
-            <View style={baseStyle.title}>
-                <Text style={baseStyle.textPrimary}>Title: {riddleData?.title}</Text>
+        <View style={styles.container}>
+            <View style={styles.top}>
+                <Text style={styles.textHeading2}>Title: {riddleData?.title}</Text>
             </View>
-            <View style={baseStyle.question}>
-                <Text style={baseStyle.textPrimary}>{riddleData?.question}</Text>
+            <View style={styles.mid}>
+                <Text style={styles.textTitle}>{riddleData?.question}</Text>
             </View>
-            <View style={baseStyle.bottom}>
+            <View style={styles.bot}>
                 <TouchableOpacity 
-                style={baseStyle.btn}
+                style={styles.btn}
                 onPress={() => props.navigation.navigate('Solve')}
                 >
-                    <Text style={baseStyle.btnText}>Solve</Text>
+                    <Text style={styles.btnText}>Solve</Text>
                 </TouchableOpacity>
             </View>
 
