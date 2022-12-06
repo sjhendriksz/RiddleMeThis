@@ -2,7 +2,7 @@ const darkMode = {
     primary: '#14B0C9',
     secondary: '#B4B4B4',
     textPrimary: '#FFFFFF',
-    textTertiary: '#7B7B7B',
+    textTertiary: '#333333',
     textGray: '#B4B4B4',
     borderColor: '#D4D4D4',
     backgroundColor: '#333333',
