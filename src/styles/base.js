@@ -5,7 +5,7 @@ import { StyleSheet} from 'react-native';
 import { color } from 'react-native-reanimated';
 
 // Styles
-const styles = StyleSheet.create({
+const baseStyle = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
@@ -14,6 +14,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         backgroundColor: darkMode.backgroundColor,
     },
+
+    // Riddle screen components styling
     title: {
         flex:1,
         width: "100%",
@@ -22,11 +24,43 @@ const styles = StyleSheet.create({
         flex:4,
         width: "100%",
     },
-    answer: {
+    bottom: {
         flex:1,
         justifyContent: "center",
         width: "100%",
     },
+
+    // Homescreen component styling
+    textHeading: {
+        color: darkMode.textPrimary,
+        fontSize: 30,
+        fontWeight: "bold",
+        margin: 10,
+    },
+    textTitle: {
+        color: darkMode.textPrimary,
+        fontSize: 20,
+        margin: 10,
+        padding: 20,
+    },
+    top: {
+        flex:1,
+        justifyContent: "center",
+        width: "100%",
+    },
+    mid: {
+        flex:4,
+        justifyContent: "flex-start",
+        alignItems: "center",
+        width: "100%",
+    },
+    bot: {
+        flex:1,
+        justifyContent: "center",
+        width: "100%",
+    },
+
+    // Common button style accross app
     btn: {
         alignItems: "center",
         padding: 16,
@@ -38,6 +72,8 @@ const styles = StyleSheet.create({
         color: darkMode.textTertiary,
         fontWeight: "bold",
     },
+
+    // White text on a dark background
     textPrimary: {
         color: darkMode.textPrimary,
         fontSize: 20,
@@ -47,5 +83,5 @@ const styles = StyleSheet.create({
 
 });
 
-export default styles;
+export default baseStyle;
 

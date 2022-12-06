@@ -4,28 +4,28 @@ import {Text, View, TouchableOpacity } from 'react-native';
 // Import required styles
 import baseStyle from '../styles/base'
 
-// Home Screen
-export default function RiddleScreen(props){
+// Answer Screen
+export default function SolveScreen(props){
 
     const riddleData = props.riddleData;
 
     return(
         <View style={baseStyle.container}>
             <View style={baseStyle.title}>
-                <Text style={baseStyle.textPrimary}>Title: {riddleData?.title}</Text>
+                <Text style={baseStyle.textPrimary}>Chances Remaining: 5</Text>
             </View>
             <View style={baseStyle.question}>
-                <Text style={baseStyle.textPrimary}>{riddleData?.question}</Text>
+                <Text style={baseStyle.textPrimary}>Answer: {riddleData?.answer}</Text>
             </View>
             <View style={baseStyle.bottom}>
                 <TouchableOpacity 
-                style={baseStyle.btn}
-                onPress={() => props.navigation.navigate('Solve')}
+                    style={baseStyle.btn}
+                    onPress={() => props.navigation.navigate('Riddle')}
                 >
-                    <Text style={baseStyle.btnText}>Solve</Text>
+                    <Text style={baseStyle.btnText}>Back to Riddle</Text>
                 </TouchableOpacity>
             </View>
-
         </View>
     )
+
 }

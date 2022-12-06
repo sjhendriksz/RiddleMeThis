@@ -7,23 +7,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
-
-function AnswerScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Answer Screen</Text>
-    </View>
-  );
-}
+// Import paper provider for styling
+import { Provider as PaperProvider } from 'react-native-paper'
 
 // Safearea library
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 // Import screens
-import RiddleScreen from './src/screens/RiddleScreen';
+import RiddleScreen from './src/screens/riddleScreen';
+import SolveScreen from './src/screens/solveScreen';
+import HomeScreen from './src/screens/homeScreen';
+import SettingsScreen from './src/screens/settingsScreen';
 
 // Import styles
-import styles from './src/styles/base';
+import baseStyle from './src/styles/base';
 
 // Import data functions
 import { GetRiddleData } from './src/hooks/api';
@@ -44,7 +41,7 @@ export default function App() {
   if(riddleData == null){
     console.log("Error while loading");
     return (
-      <View style={styles.container}>
+      <View style={baseStyle.container}>
         <Text>An error occured</Text>
       </View>
     );
@@ -52,7 +49,7 @@ export default function App() {
   else if(loadingRiddle){
     console.log("Busy loading");
     return (
-      <View style={styles.container}>
+      <View style={baseStyle.container}>
         <Text>Loading...</Text>
       </View>
     );
@@ -64,6 +61,12 @@ export default function App() {
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen  name="Home" >
+              {(props) => <HomeScreen 
+                  {...props}
+                />
+              }
+            </Stack.Screen>
             <Stack.Screen  name="Riddle" >
               {(props) => <RiddleScreen 
                   {...props} 
@@ -71,7 +74,18 @@ export default function App() {
                 />
               }
             </Stack.Screen>
-            <Stack.Screen  name="Answer" component={AnswerScreen} >
+            <Stack.Screen  name="Solve" >
+              {(props) => <SolveScreen 
+                  {...props}
+                  riddleData={riddleData}
+                />
+              }
+            </Stack.Screen>
+            <Stack.Screen  name="Settings" >
+              {(props) => <SettingsScreen 
+                  {...props}
+                />
+              }
             </Stack.Screen>
           </Stack.Navigator>
         </NavigationContainer>
