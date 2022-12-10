@@ -1,6 +1,6 @@
 // Import required components
 import React, {useState} from 'react';
-import {Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import {Text, View, TouchableOpacity, TextInput, ScrollView, Keyboard } from 'react-native';
 
 // Import required styles
 import styles from '../styles/styles'
@@ -22,27 +22,46 @@ export default function SolveScreen(props){
 
     function handleKeyDown({nativeEvent}) {
 
-        console.log("handleKeyDown");
-        console.log(nativeEvent.key)
+        console.log("handleKeyDown function: " + nativeEvent.key);
 
         // only run when the return or enter key is pressed
-        if(nativeEvent.key != "backspace"){
+        if(nativeEvent.key !== "Backspace" && nativeEvent.key !== "handleKeyDown" && nativeEvent.key !== " "){
             // check if player still has tries left
 
-            // loop through all the letters and compare if any matches. counter will keep count of matches found.
-            var count = 0;
+            // counters will keep count of matches found and unsolved characters.
+            var countTries = 0;
+            var countUnsolvedCharacters = 0;
+
+            // loop through all the letters and compare if any matches. 
             for(var i = 0; i < answer.length; i++){
+                // replace unsolved characters
                 if(answer[i].toLowerCase() == nativeEvent.key.toLowerCase()){
                     hiddenAnswer[i] = nativeEvent.key.toUpperCase();
-                    count++;
+                    countTries++;
+                }
+                // count unsolved characters
+                if(hiddenAnswer[i] == "_"){
+                    countUnsolvedCharacters++;
                 }
             }
 
             // if wrong letter was chosen, deduct one try
-            if(count == 0){
+            if(countTries == 0){
                 setTries(tries - 1);
             }
+            console.log("Tries left: " + tries);
 
+            // riddle has been solved
+            if(countUnsolvedCharacters == 0){
+                console.log("Riddle solved");
+                // hide keyboard
+                Keyboard.dismiss();
+            }
+            console.log("unsolved characters: " + countUnsolvedCharacters);
+
+        }
+        else{
+            console.log("Filtered key: " + nativeEvent.key);
         }
 
     }

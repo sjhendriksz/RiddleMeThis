@@ -30,6 +30,8 @@ export const GetRiddleData = async (setRiddleData, setLoadingRiddleData) => {
         hiddenAnswer.push("?");
       }else if(answerArray[i] == "."){
         hiddenAnswer.push(".");
+      }else if(answerArray[i] == ","){
+        hiddenAnswer.push(",");
       }else{
         hiddenAnswer.push("_");
       }
