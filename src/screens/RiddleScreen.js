@@ -1,5 +1,6 @@
 // Import required components
 import {Text, View, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // Import required styles
 import styles from '../styles/styles'
@@ -14,9 +15,13 @@ export default function RiddleScreen(props){
             <View style={styles.top}>
                 <Text style={styles.textHeading2}>Title: {riddleData?.title}</Text>
             </View>
+            
             <View style={styles.mid}>
-                <Text style={styles.textTitle}>{riddleData?.question}</Text>
+                <ScrollView vertrical>
+                    <Text style={styles.textTitle}>{riddleData?.question}</Text>
+                </ScrollView>
             </View>
+            
             <View style={styles.bot}>
                 <TouchableOpacity 
                 style={styles.btn}

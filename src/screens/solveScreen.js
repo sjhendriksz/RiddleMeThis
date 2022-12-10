@@ -20,26 +20,30 @@ export default function SolveScreen(props){
     // save text from TextInput so it can be checked if the character is in the answer. 
     const [text, setText] = useState("");
 
-    function onSubmitFunction(text) {
-        console.log("onSubmitFunction");
-        console.log(text.text);
-        // check if player still has tries left
-        // if(tries > 0){
-        //     setTries(tries - 1)
-        // }
-        // // no more tries, end game
-        // else{
-        //     console.log("Out of tries.")
-        // }
-        for(var i = 0; i < answer.length; i++){
-            if(answer[i].toLowerCase() == text.text.toLowerCase()){
-                hiddenAnswer[i] = text.text
-            }else{
-                // setTries(tries - 1)
+    function handleKeyDown({nativeEvent}) {
+
+        console.log("handleKeyDown");
+        console.log(nativeEvent.key)
+
+        // only run when the return or enter key is pressed
+        if(nativeEvent.key != "backspace"){
+            // check if player still has tries left
+
+            // loop through all the letters and compare if any matches. counter will keep count of matches found.
+            var count = 0;
+            for(var i = 0; i < answer.length; i++){
+                if(answer[i].toLowerCase() == nativeEvent.key.toLowerCase()){
+                    hiddenAnswer[i] = nativeEvent.key.toUpperCase();
+                    count++;
+                }
             }
+
+            // if wrong letter was chosen, deduct one try
+            if(count == 0){
+                setTries(tries - 1);
+            }
+
         }
-
-
 
     }
 
@@ -50,11 +54,15 @@ export default function SolveScreen(props){
                 <Text style={styles.textTitle}>Chances Remaining: {tries}</Text>
             </View>
 
-            <View style={{flex:4, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start", width: "100%",}}>
-                {hiddenAnswer.map((letter, index) => (    
-                    // <Text key={index} style={{margin: 2, padding: 2, color: "white", fontSize: 26}}>{letter==" " ? "  " : letter=="." ? "." : letter=="?" ? "?" : "_" }</Text>
-                    <Text key={index} style={{margin: 2, padding: 2, color: "white", fontSize: 26}}>{letter}</Text>
-                ))}
+            <View style={{flex:4}}>
+                <ScrollView>
+                    <View style={{flex:1, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start", width: "100%",}}>
+                    {hiddenAnswer.map((letter, index) => (    
+                        // <Text key={index} style={{margin: 2, padding: 2, color: "white", fontSize: 26}}>{letter==" " ? "  " : letter=="." ? "." : letter=="?" ? "?" : "_" }</Text>
+                        <Text key={index} style={{margin: 2, padding: 2, color: "white", fontSize: 26}}>{letter}</Text>
+                    ))}
+                    </View>
+                </ScrollView>
             </View>
             
             <View 
@@ -64,11 +72,14 @@ export default function SolveScreen(props){
                 <TextInput
                     style={[{borderColor:"black", borderWidth: 1, color: "white", fontSize:20, height: "100%", textAlign: "center", borderRadius: 10}]}
                     onChangeText={setText}
-                    onSubmitEditing={onSubmitFunction({text})}
+                    // onSubmitEditing={onSubmitFunction({text})}
+                    keyboardType="default"
+                    // returnKeyType="done"
+                    // onKeyPress={ ({nativeEvent}) => console.log(nativeEvent.key) }
+                    onKeyPress={({nativeEvent}) => handleKeyDown({nativeEvent})}
                     value={text}
                     placeholder="Solve the answer"
-                    keyboardType="alphanumeric"
-                    maxLength={1}
+                    maxLength={20}
                 />
             </View>
 
