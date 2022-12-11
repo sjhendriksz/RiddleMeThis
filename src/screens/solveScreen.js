@@ -1,25 +1,28 @@
 // Import required components
 import React, {useState} from 'react';
-import {Text, View, TouchableOpacity, TextInput, ScrollView, Keyboard } from 'react-native';
+import {Text, View, TextInput, Keyboard } from 'react-native';
 
 // Import required styles
 import styles from '../styles/styles'
 
+// Import required components
+import { SolveRiddleView } from '../components/solveRiddleViewComp';
+
 // Answer Screen
 export default function SolveScreen(props){
-
-    // const answer = riddleData.answer.split(""); Changed string to itterable string data for use on line 38, now commented.
     
     // get the data through the props and isolate hiddenAnswer for use on this page.
     const riddleData = props.riddleData;
     const answer = props.riddleData.answer
-    const hiddenAnswer = riddleData.hiddenAnswer;
+    const hiddenAnswerTemp = riddleData.hiddenAnswer;
+    const [hiddenAnswer, sethiddenAnswer] = useState(hiddenAnswerTemp);
     
     // number of tries a user is allowed.
     const [tries, setTries] = useState(5);
     // save text from TextInput so it can be checked if the character is in the answer. 
     const [text, setText] = useState("");
 
+    // process the selected key
     function handleKeyDown({nativeEvent}) {
 
         console.log("handleKeyDown function: " + nativeEvent.key);
@@ -36,14 +39,16 @@ export default function SolveScreen(props){
             for(var i = 0; i < answer.length; i++){
                 // replace unsolved characters
                 if(answer[i].toLowerCase() == nativeEvent.key.toLowerCase()){
-                    hiddenAnswer[i] = nativeEvent.key.toUpperCase();
+                    hiddenAnswerTemp[i] = nativeEvent.key.toUpperCase();
                     countTries++;
                 }
                 // count unsolved characters
-                if(hiddenAnswer[i] == "_"){
+                if(hiddenAnswerTemp[i] == "_"){
                     countUnsolvedCharacters++;
                 }
             }
+            // set the hidden answer state
+            sethiddenAnswer(hiddenAnswerTemp);
 
             // if wrong letter was chosen, deduct one try
             if(countTries == 0){
@@ -68,40 +73,24 @@ export default function SolveScreen(props){
 
     return(
         <View style={styles.container}>
-
             <View style={styles.top}>
                 <Text style={styles.textTitle}>Chances Remaining: {tries}</Text>
             </View>
 
-            <View style={{flex:4}}>
-                <ScrollView>
-                    <View style={{flex:1, flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start", width: "100%",}}>
-                    {hiddenAnswer.map((letter, index) => (    
-                        // <Text key={index} style={{margin: 2, padding: 2, color: "white", fontSize: 26}}>{letter==" " ? "  " : letter=="." ? "." : letter=="?" ? "?" : "_" }</Text>
-                        <Text key={index} style={{margin: 2, padding: 2, color: "white", fontSize: 26}}>{letter}</Text>
-                    ))}
-                    </View>
-                </ScrollView>
-            </View>
-            
-            <View 
-                style={[styles.bot, {backgroundColor: "grey", padding: 0, borderRadius: 10}]}
-                // key={hiddenAnswer}
-            >
+            <SolveRiddleView hiddenAnswer = { hiddenAnswer } />
+
+            <View style={[styles.bot, {backgroundColor: "grey", padding: 0, borderRadius: 10}]} >
                 <TextInput
                     style={[{borderColor:"black", borderWidth: 1, color: "white", fontSize:20, height: "100%", textAlign: "center", borderRadius: 10}]}
                     onChangeText={setText}
-                    // onSubmitEditing={onSubmitFunction({text})}
                     keyboardType="default"
-                    // returnKeyType="done"
-                    // onKeyPress={ ({nativeEvent}) => console.log(nativeEvent.key) }
+                    onSubmitEditing={() => console.log("return key has been pressed")}
                     onKeyPress={({nativeEvent}) => handleKeyDown({nativeEvent})}
                     value={text}
                     placeholder="Solve the answer"
                     maxLength={20}
                 />
             </View>
-
         </View>
     )
 
