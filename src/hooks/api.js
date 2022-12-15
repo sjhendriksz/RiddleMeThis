@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 const apiNinjasKey = "AAcAJx2mUbTUPkR4byMMvg==qUrKhHNO9P2GCPMx";
 
@@ -7,12 +7,12 @@ const apiNinjasKey = "AAcAJx2mUbTUPkR4byMMvg==qUrKhHNO9P2GCPMx";
 export const GetRiddleData = async (setRiddleData, setLoadingRiddleData) => {
   try {
     const response = await fetch('https://api.api-ninjas.com/v1/riddles',
-    {
-        method: 'GET', 
-        headers:{
-            'Value': apiNinjasKey
+      {
+        method: 'GET',
+        headers: {
+          'Value': apiNinjasKey
         }
-    });
+      });
     const json = await response.json();
     console.log("Function GetRiddleData...");
     console.log(json[0]);
@@ -23,18 +23,18 @@ export const GetRiddleData = async (setRiddleData, setLoadingRiddleData) => {
     const hiddenAnswer = [];
 
     // Itterate over the answer and manipulate string data so it's hidden.
-    for(var i = 0; i < answerArray.length; i++){
-      if(answerArray[i] == " "){
+    for (var i = 0; i < answerArray.length; i++) {
+      if (answerArray[i] == " ") {
         hiddenAnswer.push(" ");
-      }else if(answerArray[i] == "?"){
+      } else if (answerArray[i] == "?") {
         hiddenAnswer.push("?");
-      }else if(answerArray[i] == "!"){
+      } else if (answerArray[i] == "!") {
         hiddenAnswer.push("!");
-      }else if(answerArray[i] == "."){
+      } else if (answerArray[i] == ".") {
         hiddenAnswer.push(".");
-      }else if(answerArray[i] == ","){
+      } else if (answerArray[i] == ",") {
         hiddenAnswer.push(",");
-      }else{
+      } else {
         hiddenAnswer.push("_");
       }
     }

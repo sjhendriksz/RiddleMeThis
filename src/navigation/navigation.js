@@ -20,75 +20,77 @@ import SolveScreen from '../screens/solveScreen';
 import HomeScreen from '../screens/homeScreen';
 import SettingsScreen from '../screens/settingsScreen';
 
-const NavStack  = (props) => {
+const NavStack = (props) => {
 
     const riddleData = props.riddleData;
+    const loadingRiddle = props.loadingRiddle;
 
-    return(
+    return (
         <SafeAreaProvider>
-        <NavigationContainer>
-          <Tab.Navigator 
-            initialRouteName="Home"
-            screenOptions={({ route }) => ({
-              headerShown: true,
-              tabBarStyle: { 
-                height: 70,
-                paddingBottom: 10,
-                paddingTop: 10,
-              },
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-                if (route.name === 'Home') {
-                  iconName = focused ? 'home' : 'home-outline';
-                } else if (route.name === 'Riddle') {
-                  iconName = focused ? 'play-circle' : 'play-circle-outline';
-                } else if (route.name === 'Solve') {
-                  iconName = focused ? 'help-circle' : 'help-circle-outline';
-                } else if (route.name === 'Settings') {
-                  iconName = focused ? 'list-circle' : 'list-circle-outline';
-                }
-    
-                // You can return any component that you like here!
-                return <Ionicons name={iconName} size={size} color={color} />;
-              },
-              tabBarActiveTintColor: 'tomato',
-              tabBarInactiveTintColor: '#333',
-            })}
-            
-          >
-            <Tab.Screen  
-              name="Home"
-            >
-              {(props) => <HomeScreen 
-                  {...props}
-                />
-              }
-            </Tab.Screen>
-            <Tab.Screen  name="Riddle" >
-              {(props) => <RiddleScreen 
-                  {...props} 
-                  riddleData={riddleData} 
-                />
-              }
-            </Tab.Screen>
-            <Tab.Screen  name="Solve" >
-              {(props) => <SolveScreen 
-                  {...props}
-                  riddleData={riddleData}
-                />
-              }
-            </Tab.Screen>
-            <Tab.Screen  name="Settings" >
-              {(props) => <SettingsScreen 
-                  {...props}
-                />
-              }
-            </Tab.Screen>
-          </Tab.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
+            <NavigationContainer>
+                <Tab.Navigator
+                    initialRouteName="Home"
+                    screenOptions={({ route }) => ({
+                        headerShown: true,
+                        tabBarStyle: {
+                            height: 70,
+                            paddingBottom: 10,
+                            paddingTop: 10,
+                        },
+                        tabBarIcon: ({ focused, color, size }) => {
+                            let iconName;
+                            if (route.name === 'Home') {
+                                iconName = focused ? 'home' : 'home-outline';
+                            } else if (route.name === 'Riddle') {
+                                iconName = focused ? 'play-circle' : 'play-circle-outline';
+                            } else if (route.name === 'Solve') {
+                                iconName = focused ? 'help-circle' : 'help-circle-outline';
+                            } else if (route.name === 'Settings') {
+                                iconName = focused ? 'list-circle' : 'list-circle-outline';
+                            }
+
+                            // You can return any component that you like here!
+                            return <Ionicons name={iconName} size={size} color={color} />;
+                        },
+                        tabBarActiveTintColor: 'tomato',
+                        tabBarInactiveTintColor: '#333',
+                    })}
+                >
+                    <Tab.Screen
+                        name="Home"
+                    >
+                        {(props) => <HomeScreen
+                            {...props}
+                            riddleData={riddleData}
+                            loadingRiddle={loadingRiddle}
+                        />
+                        }
+                    </Tab.Screen>
+                    <Tab.Screen name="Riddle" >
+                        {(props) => <RiddleScreen
+                            {...props}
+                            riddleData={riddleData}
+                        />
+                        }
+                    </Tab.Screen>
+                    <Tab.Screen name="Solve" >
+                        {(props) => <SolveScreen
+                            {...props}
+                            riddleData={riddleData}
+                        />
+                        }
+                    </Tab.Screen>
+                    <Tab.Screen name="Settings" >
+                        {(props) => <SettingsScreen
+                            {...props}
+                        />
+                        }
+                    </Tab.Screen>
+                </Tab.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
     )
-    
+
 };
 
 export default NavStack;

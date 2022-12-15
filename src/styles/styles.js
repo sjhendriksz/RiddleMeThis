@@ -1,5 +1,5 @@
 // Import the required styles
-import { StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../theme/colors';
 
 // Styles
@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold",
         margin: 10,
-        padding:10,
+        padding: 10,
     },
     textHeading2: {
         color: colors.textPrimary,
         fontSize: 24,
         fontWeight: "bold",
         margin: 10,
-        padding:10,
+        padding: 10,
     },
     textTitle: {
         color: colors.textPrimary,
@@ -35,23 +35,23 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     top: {
-        flex:1,
+        flex: 1,
         justifyContent: "center",
         width: "100%",
     },
     midHome: {
-        flex:4,
+        flex: 4,
         justifyContent: "flex-start",
         alignItems: "center",
         width: "100%",
     },
     mid: {
-        flex:4,
+        flex: 4,
         justifyContent: "flex-start",
         width: "100%",
     },
     bot: {
-        flex:1,
+        flex: 1,
         justifyContent: "center",
         width: "100%",
     },
@@ -79,10 +79,13 @@ const styles = StyleSheet.create({
 
     // Solve screen text input style
     textInput: {
-        borderColor:colors.borderColor,
+        placeholderTextColor: colors.textTertiary,
+        backgroundColor: colors.secondary,
+        borderColor: colors.borderColor,
         borderWidth: 1,
-        color: colors.textPrimary,
-        fontSize:20,
+        color: colors.textTertiary,
+        fontSize: 20,
+        fontWeight: "bold",
         height: "100%",
         textAlign: "center",
         borderRadius: 10
