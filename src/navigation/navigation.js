@@ -1,23 +1,94 @@
-// import {StackNavigator, DrawerNavigator, TabNavigator} from 'react-navigation';
-// Navigator
-// import { NavigationContainer } from '@react-navigation/native';
-// Native navigator
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// const Stack = createNativeStackNavigator();
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import RiddleScreen  from '../screens/riddleScreen';
-import SolveScreen from '../screens/solveScreen';
 import React from 'react';
 
-const Navigation=createNativeStackNavigator({
-    Riddle: {
-        screen: RiddleScreen,
-    },
-    Solve: {
-        screen: SolveScreen,
-    },
-});
+// Navigator
+import { NavigationContainer } from '@react-navigation/native';
+// Native navigator
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+const Tab = createBottomTabNavigator();
 
-export default Navigation;
+// Icons for use with the navigator
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// Safearea library
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+// Import screens
+import RiddleScreen from '../screens/riddleScreen';
+import SolveScreen from '../screens/solveScreen';
+import HomeScreen from '../screens/homeScreen';
+import SettingsScreen from '../screens/settingsScreen';
+
+const NavStack  = (props) => {
+
+    const riddleData = props.riddleData;
+
+    return(
+        <SafeAreaProvider>
+        <NavigationContainer>
+          <Tab.Navigator 
+            initialRouteName="Home"
+            screenOptions={({ route }) => ({
+              headerShown: true,
+              tabBarStyle: { 
+                height: 70,
+                paddingBottom: 10,
+                paddingTop: 10,
+              },
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+                if (route.name === 'Home') {
+                  iconName = focused ? 'home' : 'home-outline';
+                } else if (route.name === 'Riddle') {
+                  iconName = focused ? 'play-circle' : 'play-circle-outline';
+                } else if (route.name === 'Solve') {
+                  iconName = focused ? 'help-circle' : 'help-circle-outline';
+                } else if (route.name === 'Settings') {
+                  iconName = focused ? 'list-circle' : 'list-circle-outline';
+                }
+    
+                // You can return any component that you like here!
+                return <Ionicons name={iconName} size={size} color={color} />;
+              },
+              tabBarActiveTintColor: 'tomato',
+              tabBarInactiveTintColor: '#333',
+            })}
+            
+          >
+            <Tab.Screen  
+              name="Home"
+            >
+              {(props) => <HomeScreen 
+                  {...props}
+                />
+              }
+            </Tab.Screen>
+            <Tab.Screen  name="Riddle" >
+              {(props) => <RiddleScreen 
+                  {...props} 
+                  riddleData={riddleData} 
+                />
+              }
+            </Tab.Screen>
+            <Tab.Screen  name="Solve" >
+              {(props) => <SolveScreen 
+                  {...props}
+                  riddleData={riddleData}
+                />
+              }
+            </Tab.Screen>
+            <Tab.Screen  name="Settings" >
+              {(props) => <SettingsScreen 
+                  {...props}
+                />
+              }
+            </Tab.Screen>
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    )
+    
+};
+
+export default NavStack;
