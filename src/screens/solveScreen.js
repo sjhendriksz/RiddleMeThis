@@ -27,47 +27,59 @@ export default function SolveScreen(props){
 
         console.log("handleKeyDown function: " + nativeEvent.key);
 
-        // only run when the return or enter key is pressed
-        if(nativeEvent.key !== "Backspace" && nativeEvent.key !== "handleKeyDown" && nativeEvent.key !== " "){
-            // check if player still has tries left
+        // check if player still has tries left
+        if(tries > 0){
 
-            // counters will keep count of matches found and unsolved characters.
-            var countTries = 0;
-            var countUnsolvedCharacters = 0;
+            // only run when the return or enter key is pressed
+            if(nativeEvent.key !== "Backspace" && nativeEvent.key !== " "){
 
-            // loop through all the letters and compare if any matches. 
-            for(var i = 0; i < answer.length; i++){
-                // replace unsolved characters
-                if(answer[i].toLowerCase() == nativeEvent.key.toLowerCase()){
-                    hiddenAnswerTemp[i] = nativeEvent.key.toUpperCase();
-                    countTries++;
+                // counters will keep count of matches found and unsolved characters.
+                var countTries = 0;
+                var countUnsolvedCharacters = 0;
+
+                // loop through all the letters and compare if any matches. 
+                for(var i = 0; i < answer.length; i++){
+                    // check if typed character has already been solved
+
+                    // replace unsolved characters
+                    if(answer[i].toLowerCase() == nativeEvent.key.toLowerCase()){
+                        hiddenAnswerTemp[i] = nativeEvent.key.toUpperCase();
+                        countTries++;
+                    }
+                    // count unsolved characters
+                    if(hiddenAnswerTemp[i] == "_"){
+                        countUnsolvedCharacters++;
+                    }
                 }
-                // count unsolved characters
-                if(hiddenAnswerTemp[i] == "_"){
-                    countUnsolvedCharacters++;
+                // set the hidden answer state
+                sethiddenAnswer(hiddenAnswerTemp);
+
+                // if wrong letter was chosen, deduct one try
+                if(countTries == 0){
+                    setTries(tries - 1);
                 }
-            }
-            // set the hidden answer state
-            sethiddenAnswer(hiddenAnswerTemp);
+                console.log("Tries left: " + tries);
 
-            // if wrong letter was chosen, deduct one try
-            if(countTries == 0){
-                setTries(tries - 1);
-            }
-            console.log("Tries left: " + tries);
+                // riddle has been solved
+                if(countUnsolvedCharacters == 0){
+                    console.log("Riddle solved");
+                    // hide keyboard
+                    Keyboard.dismiss();
+                }
+                console.log("unsolved characters: " + countUnsolvedCharacters);
 
-            // riddle has been solved
-            if(countUnsolvedCharacters == 0){
-                console.log("Riddle solved");
-                // hide keyboard
-                Keyboard.dismiss();
             }
-            console.log("unsolved characters: " + countUnsolvedCharacters);
+            else{
+                console.log("Filtered key: " + nativeEvent.key);
+            }
 
         }
+        // game over - no tries left
         else{
-            console.log("Filtered key: " + nativeEvent.key);
+            console.log("Game over");
         }
+
+        
 
     }
 
@@ -81,13 +93,14 @@ export default function SolveScreen(props){
 
             <View style={[styles.bot, {backgroundColor: "grey", padding: 0, borderRadius: 10}]} >
                 <TextInput
-                    style={[{borderColor:"black", borderWidth: 1, color: "white", fontSize:20, height: "100%", textAlign: "center", borderRadius: 10}]}
+                    style={styles.textInput}
                     onChangeText={setText}
                     keyboardType="default"
                     onSubmitEditing={() => console.log("return key has been pressed")}
                     onKeyPress={({nativeEvent}) => handleKeyDown({nativeEvent})}
                     value={text}
                     placeholder="Solve the answer"
+                    placeholderTextColor="white"
                     maxLength={20}
                 />
             </View>

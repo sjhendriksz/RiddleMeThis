@@ -1,6 +1,9 @@
 import { Text, View } from 'react-native';
 import React, {useState, useEffect} from 'react';
 
+// Orientation
+import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks';
+
 // Navigator
 import { NavigationContainer } from '@react-navigation/native';
 // Native navigator
@@ -31,6 +34,8 @@ export default function App() {
 
   const [riddleData, setRiddleData] = useState(null);
   const [loadingRiddle, setLoadingRiddleData] = useState(null);
+  const {landscape} = useDeviceOrientation();
+  console.log(landscape);
 
   useEffect(() => {
     

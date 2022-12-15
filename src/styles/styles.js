@@ -1,8 +1,6 @@
 // Import the required styles
-import darkMode from '../theme/darkModeColors';
-import lightMode from '../theme/lightModeColors';
 import { StyleSheet} from 'react-native';
-import { color } from 'react-native-reanimated';
+import colors from '../theme/colors';
 
 // Styles
 const styles = StyleSheet.create({
@@ -12,26 +10,26 @@ const styles = StyleSheet.create({
         padding: 16,
         justifyContent: "center",
         alignItems: 'flex-start',
-        backgroundColor: darkMode.backgroundColor,
+        backgroundColor: colors.backgroundColor,
     },
 
     // Homescreen, Riddlescreen component styling
     textHeading1: {
-        color: darkMode.textPrimary,
+        color: colors.textPrimary,
         fontSize: 30,
         fontWeight: "bold",
         margin: 10,
         padding:10,
     },
     textHeading2: {
-        color: darkMode.textPrimary,
+        color: colors.textPrimary,
         fontSize: 24,
         fontWeight: "bold",
         margin: 10,
         padding:10,
     },
     textTitle: {
-        color: darkMode.textPrimary,
+        color: colors.textPrimary,
         fontSize: 20,
         margin: 10,
         padding: 20,
@@ -62,21 +60,32 @@ const styles = StyleSheet.create({
     btn: {
         alignItems: "center",
         padding: 16,
-        backgroundColor: darkMode.secondary,
+        backgroundColor: colors.secondary,
         borderRadius: 10,
     },
     btnText: {
         fontSize: 20,
-        color: darkMode.textTertiary,
+        color: colors.textTertiary,
         fontWeight: "bold",
     },
 
     // White text on a dark background
     textPrimary: {
-        color: darkMode.textPrimary,
+        color: colors.textPrimary,
         fontSize: 20,
         fontWeight: "bold",
         margin: 10,
+    },
+
+    // Solve screen text input style
+    textInput: {
+        borderColor:colors.borderColor,
+        borderWidth: 1,
+        color: colors.textPrimary,
+        fontSize:20,
+        height: "100%",
+        textAlign: "center",
+        borderRadius: 10
     }
 
 });
