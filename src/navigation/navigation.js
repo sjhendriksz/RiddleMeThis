@@ -23,7 +23,11 @@ import SettingsScreen from '../screens/settingsScreen';
 const NavStack = (props) => {
 
     const riddleData = props.riddleData;
+    const setRiddleData = props.setRiddleData;
     const loadingRiddle = props.loadingRiddle;
+    const setLoadingRiddleData = props.setLoadingRiddleData;
+    const riddleSolved = props.riddleSolved;
+    const setRiddleSolved = props.setRiddleSolved;
 
     return (
         <SafeAreaProvider>
@@ -77,6 +81,10 @@ const NavStack = (props) => {
                         {(props) => <SolveScreen
                             {...props}
                             riddleData={riddleData}
+                            setRiddleData={setRiddleData}
+                            riddleSolved={riddleSolved}
+                            setLoadingRiddleData={setLoadingRiddleData}
+                            setRiddleSolved={setRiddleSolved}
                         />
                         }
                     </Tab.Screen>

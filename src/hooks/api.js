@@ -4,7 +4,9 @@ import { Dimensions } from 'react-native';
 const apiNinjasKey = "AAcAJx2mUbTUPkR4byMMvg==qUrKhHNO9P2GCPMx";
 
 // Get the Riddle data
-export const GetRiddleData = async (setRiddleData, setLoadingRiddleData) => {
+export const GetRiddleData = async (setRiddleData, setLoadingRiddleData, setRiddleSolved) => {
+  console.log("GetRiddleData");
+
   try {
     const response = await fetch('https://api.api-ninjas.com/v1/riddles',
       {
@@ -50,5 +52,6 @@ export const GetRiddleData = async (setRiddleData, setLoadingRiddleData) => {
     console.error(error);
   } finally {
     setLoadingRiddleData(false);
+    setRiddleSolved(false);
   }
 }

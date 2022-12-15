@@ -1,6 +1,6 @@
 // Import required components
 import React, { useState } from 'react';
-import { Text, View, TextInput, Keyboard } from 'react-native';
+import { Text, View, TextInput, Keyboard, TouchableOpacity } from 'react-native';
 
 // Import required styles
 import styles from '../styles/styles'
@@ -8,12 +8,22 @@ import styles from '../styles/styles'
 // Import required components
 import { SolveRiddleView } from '../components/solveRiddleViewComp';
 
+// Import data functions
+import { GetRiddleData } from '../hooks/api';
+
+
 // Answer Screen
 export default function SolveScreen(props) {
 
     // get the data through the props and isolate hiddenAnswer for use on this page.
     const riddleData = props.riddleData;
-    const answer = props.riddleData.answer
+    const setRiddleData = props.setRiddleData;
+    const setLoadingRiddleData = props.setLoadingRiddleData;
+    const riddleSolved = props.riddleSolved;
+    const setRiddleSolved = props.setRiddleSolved;
+
+
+    const answer = props.riddleData.answer;
     const hiddenAnswerTemp = riddleData.hiddenAnswer;
     const [hiddenAnswer, sethiddenAnswer] = useState(hiddenAnswerTemp);
 
@@ -28,7 +38,7 @@ export default function SolveScreen(props) {
         console.log("handleKeyDown function: " + nativeEvent.key);
 
         // check if player still has tries left
-        if (tries > 0) {
+        if (tries > 0 && riddleSolved == false) {
 
             // only run when the return or enter key is pressed
             if (nativeEvent.key !== "Backspace" && nativeEvent.key !== " ") {
@@ -63,6 +73,7 @@ export default function SolveScreen(props) {
                 // riddle has been solved
                 if (countUnsolvedCharacters == 0) {
                     console.log("Riddle solved");
+                    setRiddleSolved(true);
                     // hide keyboard
                     Keyboard.dismiss();
                 }
@@ -75,11 +86,12 @@ export default function SolveScreen(props) {
 
         }
         // game over - no tries left
-        else {
+        else if (tries == 0 && riddleSolved == false) {
             console.log("Game over");
         }
-
-
+        else if (tries > 0 && riddleSolved == true) {
+            console.log("Riddle solved")
+        }
 
     }
 
@@ -91,18 +103,33 @@ export default function SolveScreen(props) {
 
             <SolveRiddleView hiddenAnswer={hiddenAnswer} />
 
-            <View style={[styles.bot, { backgroundColor: "grey", padding: 0, borderRadius: 10 }]} >
-                <TextInput
-                    style={styles.textInput}
-                    onChangeText={setText}
-                    keyboardType="default"
-                    onSubmitEditing={() => console.log("return key has been pressed")}
-                    onKeyPress={({ nativeEvent }) => handleKeyDown({ nativeEvent })}
-                    value={text}
-                    placeholder="Solve the answer"
-                    maxLength={20}
-                />
-            </View>
+            {riddleSolved == false ?
+                <View style={[styles.bot, { backgroundColor: "grey", padding: 0, borderRadius: 10 }]} >
+                    <TextInput
+                        style={styles.textInput}
+                        onChangeText={setText}
+                        keyboardType="default"
+                        onSubmitEditing={() => console.log("return key has been pressed")}
+                        onKeyPress={({ nativeEvent }) => handleKeyDown({ nativeEvent })}
+                        value={text}
+                        placeholder="Solve the answer"
+                        maxLength={20}
+                    />
+                </View>
+                :
+                <View style={styles.bot}>
+                    <TouchableOpacity
+                        style={styles.btn}
+                        onPress={() => {
+                            props.navigation.navigate('Riddle');
+                            GetRiddleData(setRiddleData, setLoadingRiddleData, setRiddleSolved);
+                        }}
+                    >
+                        <Text style={styles.btnText}>Solved - New Riddle</Text>
+                    </TouchableOpacity>
+                </View>
+            }
+
         </View>
     )
 
