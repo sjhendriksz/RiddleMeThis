@@ -66,7 +66,11 @@ const NavStack = (props) => {
                         {(props) => <HomeStackScreen
                             {...props}
                             riddleData={riddleData}
+                            setRiddleData={setRiddleData}
                             loadingRiddle={loadingRiddle}
+                            setLoadingRiddleData={setLoadingRiddleData}
+                            riddleSolved={riddleSolved}
+                            setRiddleSolved={setRiddleSolved}
                         />
                         }
                     </Tab.Screen>
