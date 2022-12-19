@@ -121,8 +121,10 @@ export default function SolveScreen(props) {
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={() => {
-                            props.navigation.navigate('Riddle');
-                            GetRiddleData(setRiddleData, setLoadingRiddleData, setRiddleSolved);
+                            props.navigation.navigate('Riddle Stack');
+                            if (riddleSolved == true) {
+                                GetRiddleData(setRiddleData, setLoadingRiddleData, setRiddleSolved);
+                            }
                         }}
                     >
                         <Text style={styles.btnText}>Solved - New Riddle</Text>

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks';
 
 // Import navigation stack
-import NavStack from './src/navigation/navigation';
+import NavStack from './src/navigation/tabNavigator';
 
 // Import data functions
 import { GetRiddleData } from './src/hooks/api';
