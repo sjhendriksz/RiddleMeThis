@@ -11,6 +11,8 @@ import { SolveRiddleView } from '../components/solveRiddleViewComp';
 // Import data functions
 import { GetRiddleData } from '../hooks/api';
 
+// Import confetti cannon
+import ConfettiCannon from 'react-native-confetti-cannon';
 
 // Answer Screen
 export default function SolveScreen(props) {
@@ -122,6 +124,12 @@ export default function SolveScreen(props) {
                     // Riddle solved information
                     : riddleSolved == true && tries > 0 ?
                         <View style={styles.innerContainer}>
+                            <ConfettiCannon
+                                count={200}
+                                origin={{ x: -10, y: 0 }}
+                                explosionSpeed={400}
+                                fadeOut={true}
+                            />
                             <View style={styles.top}>
                                 <Text style={styles.textHeading2}>You solved it, congrats.</Text>
                             </View>

@@ -6,8 +6,6 @@ const StackNav = createNativeStackNavigator();
 
 // Import screens
 import SolveScreen from '../screens/solveScreen';
-import SolvedScreen from '../screens/solvedScreen';
-import GameOverScreen from '../screens/gameOverScreen';
 
 // Navstack for homescreen
 export default function StackNavScreen(props) {
@@ -33,22 +31,6 @@ export default function StackNavScreen(props) {
                     setLoadingRiddleData={setLoadingRiddleData}
                     setRiddleSolved={setRiddleSolved}
                     tries={tries}
-                    setTries={setTries}
-                />
-                }
-            </StackNav.Screen>
-
-            <StackNav.Screen name="SolvedStack" >
-                {(props) => <SolvedScreen
-                    {...props}
-                    riddleData={riddleData}
-                />
-                }
-            </StackNav.Screen>
-
-            <StackNav.Screen name="GameOver" >
-                {(props) => <GameOverScreen
-                    {...props}
                     setTries={setTries}
                 />
                 }

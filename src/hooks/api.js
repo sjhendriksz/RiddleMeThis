@@ -28,7 +28,9 @@ export const GetRiddleData = async (setRiddleData, setLoadingRiddleData, setRidd
     for (var i = 0; i < answerArray.length; i++) {
       if (answerArray[i] == " ") {
         hiddenAnswer.push(" ");
-      } else if (answerArray[i] == "?") {
+      }
+      // Special characters
+      else if (answerArray[i] == "?") {
         hiddenAnswer.push("?");
       } else if (answerArray[i] == "!") {
         hiddenAnswer.push("!");
@@ -38,6 +40,30 @@ export const GetRiddleData = async (setRiddleData, setLoadingRiddleData, setRidd
         hiddenAnswer.push(",");
       } else if (answerArray[i] == "'") {
         hiddenAnswer.push("'");
+      } else if (answerArray[i] == "*") {
+        hiddenAnswer.push("*");
+        // Numbers
+      } else if (answerArray[i] == "0") {
+        hiddenAnswer.push("0");
+      } else if (answerArray[i] == "1") {
+        hiddenAnswer.push("1");
+      } else if (answerArray[i] == "2") {
+        hiddenAnswer.push("2");
+      } else if (answerArray[i] == "3") {
+        hiddenAnswer.push("3");
+      } else if (answerArray[i] == "4") {
+        hiddenAnswer.push("4");
+      } else if (answerArray[i] == "5") {
+        hiddenAnswer.push("5");
+      } else if (answerArray[i] == "6") {
+        hiddenAnswer.push("6");
+      } else if (answerArray[i] == "7") {
+        hiddenAnswer.push("7");
+      } else if (answerArray[i] == "8") {
+        hiddenAnswer.push("8");
+      } else if (answerArray[i] == "9") {
+        hiddenAnswer.push("9");
+        // If none of the above, push an underscore
       } else {
         hiddenAnswer.push("_");
       }
