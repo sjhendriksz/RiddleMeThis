@@ -6,28 +6,31 @@ import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../styles/styles'
 
 // Home Screen
-export default function RiddleScreen(props) {
+export default function GameOverScreen(props) {
 
-    const riddleData = props.riddleData;
+    const setTries = props.setTries;
 
     return (
         <View style={styles.container}>
             <View style={styles.top}>
-                <Text style={styles.textHeading2}>Title: {riddleData?.title}</Text>
+                <Text style={styles.textHeading2}>Game Over.</Text>
             </View>
 
             <View style={styles.mid}>
                 <ScrollView vertrical>
-                    <Text style={styles.textTitle}>{riddleData?.question}</Text>
+                    <Text style={styles.textTitle}>You're out of tries. Press the button below to try again.</Text>
                 </ScrollView>
             </View>
 
             <View style={styles.bot}>
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={() => props.navigation.navigate('Solve')}
+                    onPress={() => {
+                        props.navigation.navigate('Riddle');
+                        setTries(5);
+                    }}
                 >
-                    <Text style={styles.btnText}>Solve</Text>
+                    <Text style={styles.btnText}>Try Again</Text>
                 </TouchableOpacity>
             </View>
 

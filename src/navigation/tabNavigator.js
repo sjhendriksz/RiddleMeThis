@@ -16,9 +16,12 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Import screens
 import SettingsScreen from '../screens/settingsScreen';
+import RiddleScreen from '../screens/riddleScreen';
+import HomeScreen from '../screens/homeScreen';
 
 // Import Home stack navigator
-import HomeStackScreen from './stackNavigator';
+import StackNavScreen from './stackNavigator';
+
 
 // Tab navigator as the outer component for nesting
 const NavStack = (props) => {
@@ -29,6 +32,8 @@ const NavStack = (props) => {
     const setLoadingRiddleData = props.setLoadingRiddleData;
     const riddleSolved = props.riddleSolved;
     const setRiddleSolved = props.setRiddleSolved;
+    const tries = props.tries;
+    const setTries = props.setTries;
 
     return (
         <SafeAreaProvider>
@@ -63,7 +68,7 @@ const NavStack = (props) => {
                 >
 
                     <Tab.Screen name="Home" >
-                        {(props) => <HomeStackScreen
+                        {(props) => <HomeScreen
                             {...props}
                             riddleData={riddleData}
                             setRiddleData={setRiddleData}
@@ -71,6 +76,28 @@ const NavStack = (props) => {
                             setLoadingRiddleData={setLoadingRiddleData}
                             riddleSolved={riddleSolved}
                             setRiddleSolved={setRiddleSolved}
+                        />
+                        }
+                    </Tab.Screen>
+
+                    <Tab.Screen name="Riddle" >
+                        {(props) => <RiddleScreen
+                            {...props}
+                            riddleData={riddleData}
+                        />
+                        }
+                    </Tab.Screen>
+
+                    <Tab.Screen name="Solve" >
+                        {(props) => <StackNavScreen
+                            {...props}
+                            riddleData={riddleData}
+                            setRiddleData={setRiddleData}
+                            riddleSolved={riddleSolved}
+                            setLoadingRiddleData={setLoadingRiddleData}
+                            setRiddleSolved={setRiddleSolved}
+                            tries={tries}
+                            setTries={setTries}
                         />
                         }
                     </Tab.Screen>

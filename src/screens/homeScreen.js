@@ -22,7 +22,7 @@ export default function HomeScreen(props) {
             <View style={styles.bot}>
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={() => props.navigation.navigate('Riddle Stack')}
+                    onPress={() => props.navigation.navigate('Riddle')}
                 >
                     <Text style={styles.btnText}>Give me a Riddle</Text>
                 </TouchableOpacity>

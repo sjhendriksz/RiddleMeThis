@@ -15,6 +15,10 @@ export default function App() {
   const [riddleData, setRiddleData] = useState(null);
   const [loadingRiddle, setLoadingRiddleData] = useState(true);
   const [riddleSolved, setRiddleSolved] = useState(false);
+
+  // number of tries a user is allowed.
+  const [tries, setTries] = useState(5);
+
   const { landscape } = useDeviceOrientation();
   console.log(landscape);
 
@@ -22,8 +26,6 @@ export default function App() {
 
     // Get the Riddle information
     if (riddleData == null && riddleSolved == false) {
-      GetRiddleData(setRiddleData, setLoadingRiddleData, setRiddleSolved);
-    } else if (riddleSolved == true) {
       GetRiddleData(setRiddleData, setLoadingRiddleData, setRiddleSolved);
     }
 
@@ -38,6 +40,8 @@ export default function App() {
       setLoadingRiddleData={setLoadingRiddleData}
       riddleSolved={riddleSolved}
       setRiddleSolved={setRiddleSolved}
+      tries={tries}
+      setTries={setTries}
     />
   );
 

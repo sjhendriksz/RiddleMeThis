@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         backgroundColor: colors.backgroundColor,
     },
+    innerContainer: {
+        flex: 1,
+        justifyContent: "center",
+        width: "100%",
+    },
 
     // Homescreen, Riddlescreen component styling
     textHeading1: {

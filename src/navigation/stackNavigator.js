@@ -2,15 +2,15 @@ import React from 'react';
 
 // Native navigator
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const HomeStack = createNativeStackNavigator();
+const StackNav = createNativeStackNavigator();
 
 // Import screens
-import RiddleScreen from '../screens/riddleScreen';
 import SolveScreen from '../screens/solveScreen';
-import HomeScreen from '../screens/homeScreen';
+import SolvedScreen from '../screens/solvedScreen';
+import GameOverScreen from '../screens/gameOverScreen';
 
 // Navstack for homescreen
-export default function HomeStackScreen(props) {
+export default function StackNavScreen(props) {
 
     const riddleData = props.riddleData;
     const setRiddleData = props.setRiddleData;
@@ -18,28 +18,13 @@ export default function HomeStackScreen(props) {
     const setLoadingRiddleData = props.setLoadingRiddleData;
     const riddleSolved = props.riddleSolved;
     const setRiddleSolved = props.setRiddleSolved;
+    const tries = props.tries;
+    const setTries = props.setTries;
 
     return (
-        <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+        <StackNav.Navigator screenOptions={{ headerShown: false }}>
 
-            <HomeStack.Screen name="Home Stack" >
-                {(props) => <HomeScreen
-                    {...props}
-                    riddleData={riddleData}
-                    loadingRiddle={loadingRiddle}
-                />
-                }
-            </HomeStack.Screen>
-
-            <HomeStack.Screen name="Riddle Stack" >
-                {(props) => <RiddleScreen
-                    {...props}
-                    riddleData={riddleData}
-                />
-                }
-            </HomeStack.Screen>
-
-            <HomeStack.Screen name="Solve Stack" >
+            <StackNav.Screen name="SolveStack" >
                 {(props) => <SolveScreen
                     {...props}
                     riddleData={riddleData}
@@ -47,10 +32,28 @@ export default function HomeStackScreen(props) {
                     riddleSolved={riddleSolved}
                     setLoadingRiddleData={setLoadingRiddleData}
                     setRiddleSolved={setRiddleSolved}
+                    tries={tries}
+                    setTries={setTries}
                 />
                 }
-            </HomeStack.Screen>
+            </StackNav.Screen>
 
-        </HomeStack.Navigator>
+            <StackNav.Screen name="SolvedStack" >
+                {(props) => <SolvedScreen
+                    {...props}
+                    riddleData={riddleData}
+                />
+                }
+            </StackNav.Screen>
+
+            <StackNav.Screen name="GameOver" >
+                {(props) => <GameOverScreen
+                    {...props}
+                    setTries={setTries}
+                />
+                }
+            </StackNav.Screen>
+
+        </StackNav.Navigator>
     );
 }

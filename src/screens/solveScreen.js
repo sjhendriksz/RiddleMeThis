@@ -1,6 +1,6 @@
 // Import required components
 import React, { useState } from 'react';
-import { Text, View, TextInput, Keyboard, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, Keyboard, TouchableOpacity, ScrollView } from 'react-native';
 
 // Import required styles
 import styles from '../styles/styles'
@@ -21,14 +21,13 @@ export default function SolveScreen(props) {
     const setLoadingRiddleData = props.setLoadingRiddleData;
     const riddleSolved = props.riddleSolved;
     const setRiddleSolved = props.setRiddleSolved;
-
+    const tries = props.tries;
+    const setTries = props.setTries;
 
     const answer = props.riddleData.answer;
     const hiddenAnswerTemp = riddleData.hiddenAnswer;
     const [hiddenAnswer, sethiddenAnswer] = useState(hiddenAnswerTemp);
 
-    // number of tries a user is allowed.
-    const [tries, setTries] = useState(5);
     // save text from TextInput so it can be checked if the character is in the answer. 
     const [text, setText] = useState("");
 
@@ -97,39 +96,83 @@ export default function SolveScreen(props) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.top}>
-                <Text style={styles.textTitle}>Chances Remaining: {tries}</Text>
-            </View>
 
-            <SolveRiddleView hiddenAnswer={hiddenAnswer} />
+            {
+                // Busy solving the riddle and have enough tries left
+                riddleSolved == false && tries > 0 ?
+                    <View style={styles.innerContainer}>
+                        <View style={styles.top}>
+                            <Text style={styles.textTitle}>Chances Remaining: {tries}</Text>
+                        </View>
+                        <SolveRiddleView hiddenAnswer={hiddenAnswer} />
+                        <View style={[styles.bot, { backgroundColor: "grey", padding: 0, borderRadius: 10 }]} >
+                            <TextInput
+                                style={styles.textInput}
+                                onChangeText={setText}
+                                keyboardType="default"
+                                onSubmitEditing={() => console.log("return key has been pressed")}
+                                onKeyPress={({ nativeEvent }) => handleKeyDown({ nativeEvent })}
+                                value={text}
+                                placeholder="Solve the answer"
+                                maxLength={20}
+                            />
+                        </View>
+                    </View>
 
-            {riddleSolved == false ?
-                <View style={[styles.bot, { backgroundColor: "grey", padding: 0, borderRadius: 10 }]} >
-                    <TextInput
-                        style={styles.textInput}
-                        onChangeText={setText}
-                        keyboardType="default"
-                        onSubmitEditing={() => console.log("return key has been pressed")}
-                        onKeyPress={({ nativeEvent }) => handleKeyDown({ nativeEvent })}
-                        value={text}
-                        placeholder="Solve the answer"
-                        maxLength={20}
-                    />
-                </View>
-                :
-                <View style={styles.bot}>
-                    <TouchableOpacity
-                        style={styles.btn}
-                        onPress={() => {
-                            props.navigation.navigate('Riddle Stack');
-                            if (riddleSolved == true) {
-                                GetRiddleData(setRiddleData, setLoadingRiddleData, setRiddleSolved);
-                            }
-                        }}
-                    >
-                        <Text style={styles.btnText}>Solved - New Riddle</Text>
-                    </TouchableOpacity>
-                </View>
+                    // Riddle solved information
+                    : riddleSolved == true && tries > 0 ?
+                        <View style={styles.innerContainer}>
+                            <View style={styles.top}>
+                                <Text style={styles.textHeading2}>You solved it, congrats.</Text>
+                            </View>
+
+                            <View style={styles.mid}>
+                                <ScrollView vertrical>
+                                    <Text style={styles.textTitle}>Question: {riddleData?.question}</Text>
+                                    <Text style={styles.textTitle}>Answer: {riddleData?.answer}</Text>
+                                </ScrollView>
+                            </View>
+
+                            <View style={styles.bot}>
+                                <TouchableOpacity
+                                    style={styles.btn}
+                                    onPress={() => {
+                                        props.navigation.navigate('Riddle');
+                                        if (riddleSolved == true) {
+                                            GetRiddleData(setRiddleData, setLoadingRiddleData, setRiddleSolved);
+                                        }
+                                    }}
+                                >
+                                    <Text style={styles.btnText}>Get a New Riddle</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        :
+
+                        // Game over information
+                        <View style={styles.innerContainer}>
+                            <View style={styles.top}>
+                                <Text style={styles.textHeading2}>Game Over.</Text>
+                            </View>
+
+                            <View style={styles.mid}>
+                                <ScrollView vertrical>
+                                    <Text style={styles.textTitle}>You're out of tries. Press the button below to try again.</Text>
+                                </ScrollView>
+                            </View>
+
+                            <View style={styles.bot}>
+                                <TouchableOpacity
+                                    style={styles.btn}
+                                    onPress={() => {
+                                        props.navigation.navigate('Riddle');
+                                        setTries(5);
+                                    }}
+                                >
+                                    <Text style={styles.btnText}>Try Again</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
             }
 
         </View>
